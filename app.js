@@ -6,6 +6,8 @@ const session = require("express-session");
 const { MongoStore } = require("connect-mongo");
 const flash = require("connect-flash");
 const connectDB = require("./config/database");
+const authRoutes = require("./routes/authRoutes");
+const adminRoutes = require("./routes/adminRoutes");
 require("./models/User");
 require("./models/CommerceType");
 require("./models/Config");
@@ -43,16 +45,20 @@ app.use(
 // Flash + variables disponibles en todas las vistas
 app.use(flash());
 app.use((req, res, next) => {
-  res.locals.user = req.session.user || null;
+  const user = req.session.user || null;
+  res.locals.user = user;
+  res.locals.isAdmin = user?.role === "admin";
+  res.locals.isClient = user?.role === "client";
+  res.locals.isCommerce = user?.role === "commerce";
+  res.locals.isDelivery = user?.role === "delivery";
   res.locals.errors = req.flash("errors");
   res.locals.success = req.flash("success");
   next();
 });
 
-// Ruta de prueba (la quitaremos luego)
-app.get("/", (req, res) => {
-  res.render("test", { title: "AppCenar", env });
-});
+console.log(typeof authRoutes);
+app.use("/", authRoutes);
+app.use("/admin", adminRoutes);
 
 // 404
 app.use((req, res) => {

@@ -1,0 +1,55 @@
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <h2 class="mb-3">Crear cuenta</h2>
+    <form action="/register" method="POST" enctype="multipart/form-data">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Nombre</label>
+          <input type="text" name="firstName" class="form-control" required>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Apellido</label>
+          <input type="text" name="lastName" class="form-control" required>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Teléfono</label>
+        <input type="text" name="phone" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Correo</label>
+        <input type="email" name="email" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Nombre de usuario</label>
+        <input type="text" name="username" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Foto de perfil</label>
+        <input type="file" name="photo" class="form-control" accept="image/*" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Registrarme como</label>
+        <select name="role" class="form-select" required>
+          <option value="">Seleccione...</option>
+          <option value="client">Cliente</option>
+          <option value="delivery">Delivery</option>
+        </select>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Contraseña</label>
+          <input type="password" name="password" class="form-control" required>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Confirmar contraseña</label>
+          <input type="password" name="confirmPassword" class="form-control" required>
+        </div>
+      </div>
+      <div class="d-flex justify-content-between">
+        <a href="/login" class="btn btn-secondary">Volver</a>
+        <button type="submit" class="btn btn-primary">Registrarme</button>
+      </div>
+    </form>
+  </div>
+</div>

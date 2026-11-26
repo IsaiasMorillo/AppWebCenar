@@ -1,0 +1,38 @@
+<h2 class="mb-4">Dashboard</h2>
+
+<div class="row g-3">
+  <div class="col-md-6">
+    <div class="card"><div class="card-body">
+      <h6 class="text-muted">Pedidos</h6>
+      <p class="mb-1">Total desde el inicio: <strong>{{stats.totalOrders}}</strong></p>
+      <p class="mb-0">Pedidos de hoy: <strong>{{stats.todayOrders}}</strong></p>
+    </div></div>
+  </div>
+  <div class="col-md-6">
+    <div class="card"><div class="card-body">
+      <h6 class="text-muted">Productos creados</h6>
+      <p class="display-6 mb-0">{{stats.totalProducts}}</p>
+    </div></div>
+  </div>
+  <div class="col-md-4">
+    <div class="card"><div class="card-body">
+      <h6 class="text-muted">Comercios</h6>
+      <p class="mb-1">Activos: <strong>{{stats.commercesActive}}</strong></p>
+      <p class="mb-0">Inactivos: <strong>{{stats.commercesInactive}}</strong></p>
+    </div></div>
+  </div>
+  <div class="col-md-4">
+    <div class="card"><div class="card-body">
+      <h6 class="text-muted">Clientes</h6>
+      <p class="mb-1">Activos: <strong>{{stats.clientsActive}}</strong></p>
+      <p class="mb-0">Inactivos: <strong>{{stats.clientsInactive}}</strong></p>
+    </div></div>
+  </div>
+  <div class="col-md-4">
+    <div class="card"><div class="card-body">
+      <h6 class="text-muted">Delivery</h6>
+      <p class="mb-1">Activos: <strong>{{stats.deliveriesActive}}</strong></p>
+      <p class="mb-0">Inactivos: <strong>{{stats.deliveriesInactive}}</strong></p>
+    </div></div>
+  </div>
+</div>
