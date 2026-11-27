@@ -1,0 +1,25 @@
+<h2 class="mb-3">Clientes</h2>
+<div class="table-responsive">
+  <table class="table table-striped align-middle">
+    <thead>
+      <tr>
+        <th>Nombre</th><th>Apellido</th><th>Pedidos</th>
+        <th>Teléfono</th><th>Correo</th><th>Estado</th><th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each users}}
+      <tr>
+        <td>{{this.firstName}}</td>
+        <td>{{this.lastName}}</td>
+        <td>{{this.ordersCount}}</td>
+        <td>{{this.phone}}</td>
+        <td>{{this.email}}</td>
+        <td>{{#if this.isActive}}<span class="badge bg-success">Activo</span>{{else}}<span class="badge bg-secondary">Inactivo</span>{{/if}}</td>
+        <td>{{> toggle_button base=../base _id=this._id isActive=this.isActive}}</td>
+      {{else}}
+      <tr><td colspan="7" class="text-center text-muted">No hay clientes</td></tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

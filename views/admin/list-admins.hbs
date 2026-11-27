@@ -1,0 +1,41 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2 class="mb-0">Administradores</h2>
+  <a href="/admin/admins/create" class="btn btn-primary">Crear administrador</a>
+</div>
+<div class="table-responsive">
+  <table class="table table-striped align-middle">
+    <thead>
+      <tr>
+        <th>Nombre</th><th>Apellido</th><th>Usuario</th>
+        <th>Cédula</th><th>Correo</th><th>Estado</th><th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each admins}}
+      <tr>
+        <td>{{this.firstName}}</td>
+        <td>{{this.lastName}}</td>
+        <td>{{this.username}}</td>
+        <td>{{this.idCard}}</td>
+        <td>{{this.email}}</td>
+        <td>{{#if this.isActive}}<span class="badge bg-success">Activo</span>{{else}}<span class="badge bg-secondary">Inactivo</span>{{/if}}</td>
+        <td>
+          {{#if this.isMe}}
+            <span class="text-muted">(tú)</span>
+          {{else}}
+            <a href="/admin/admins/{{this._id}}/edit" class="btn btn-sm btn-warning">Editar</a>
+            <form action="/admin/admins/{{this._id}}/toggle" method="POST" class="d-inline"
+                  onsubmit="return confirm('¿Está seguro que desea {{#if this.isActive}}inactivar{{else}}activar{{/if}} este usuario?');">
+              {{#if this.isActive}}
+                <button type="submit" class="btn btn-sm btn-danger">Inactivar</button>
+              {{else}}
+                <button type="submit" class="btn btn-sm btn-success">Activar</button>
+              {{/if}}
+            </form>
+          {{/if}}
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

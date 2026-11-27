@@ -1,0 +1,26 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2 class="mb-0">Categorías</h2>
+  <a href="/commerce/categories/create" class="btn btn-primary">Crear categoría</a>
+</div>
+<div class="table-responsive">
+  <table class="table table-striped align-middle">
+    <thead>
+      <tr><th>Nombre</th><th>Descripción</th><th>Productos</th><th></th></tr>
+    </thead>
+    <tbody>
+      {{#each categories}}
+      <tr>
+        <td>{{this.name}}</td>
+        <td>{{this.description}}</td>
+        <td>{{this.productsCount}}</td>
+        <td>
+          <a href="/commerce/categories/{{this._id}}/edit" class="btn btn-sm btn-warning">Editar</a>
+          <a href="/commerce/categories/{{this._id}}/delete" class="btn btn-sm btn-danger">Eliminar</a>
+        </td>
+      </tr>
+      {{else}}
+      <tr><td colspan="4" class="text-center text-muted">No hay categorías</td></tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

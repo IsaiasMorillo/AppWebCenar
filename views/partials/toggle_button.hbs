@@ -1,0 +1,7 @@
+<form action="{{base}}/{{_id}}/toggle" method="POST" class="d-inline">
+  {{#if isActive}}
+    <button type="submit" class="btn btn-sm btn-danger">Inactivar</button>
+  {{else}}
+    <button type="submit" class="btn btn-sm btn-success">Activar</button>
+  {{/if}}
+</form>

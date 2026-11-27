@@ -8,6 +8,7 @@ const flash = require("connect-flash");
 const connectDB = require("./config/database");
 const authRoutes = require("./routes/authRoutes");
 const adminRoutes = require("./routes/adminRoutes");
+const commerceRoutes = require("./routes/commerceRoutes");
 require("./models/User");
 require("./models/CommerceType");
 require("./models/Config");
@@ -59,6 +60,7 @@ app.use((req, res, next) => {
 console.log(typeof authRoutes);
 app.use("/", authRoutes);
 app.use("/admin", adminRoutes);
+app.use("/commerce", commerceRoutes);
 
 // 404
 app.use((req, res) => {

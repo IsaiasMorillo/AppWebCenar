@@ -1,0 +1,31 @@
+<h2 class="mb-3">Perfil del comercio</h2>
+<form action="/commerce/profile" method="POST" enctype="multipart/form-data" style="max-width: 600px;">
+  <div class="mb-3">
+    <label class="form-label">Logo del comercio</label>
+    <div class="mb-2"><img src="{{commerce.logo}}" alt="logo" width="80" height="80" class="rounded object-fit-cover"></div>
+    <input type="file" name="logo" class="form-control" accept="image/*">
+    <div class="form-text">Déjalo vacío para conservar el logo actual.</div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <label class="form-label">Hora de apertura</label>
+      <input type="time" name="openingTime" value="{{commerce.openingTime}}" class="form-control" required>
+    </div>
+    <div class="col-md-6 mb-3">
+      <label class="form-label">Hora de cierre</label>
+      <input type="time" name="closingTime" value="{{commerce.closingTime}}" class="form-control" required>
+    </div>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Teléfono</label>
+    <input type="text" name="phone" value="{{commerce.phone}}" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Correo</label>
+    <input type="email" name="email" value="{{commerce.email}}" class="form-control" required>
+  </div>
+  <div class="d-flex justify-content-between">
+    <a href="/commerce" class="btn btn-secondary">Volver</a>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+  </div>
+</form>

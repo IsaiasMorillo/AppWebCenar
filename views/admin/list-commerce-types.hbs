@@ -1,0 +1,27 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h2 class="mb-0">Tipos de comercio</h2>
+  <a href="/admin/commerce-types/create" class="btn btn-primary">Crear tipo de comercio</a>
+</div>
+<div class="table-responsive">
+  <table class="table table-striped align-middle">
+    <thead>
+      <tr><th>Icono</th><th>Nombre</th><th>Descripción</th><th>Comercios</th><th></th></tr>
+    </thead>
+    <tbody>
+      {{#each types}}
+      <tr>
+        <td><img src="{{this.icon}}" alt="icono" width="48" height="48" class="rounded object-fit-cover"></td>
+        <td>{{this.name}}</td>
+        <td>{{this.description}}</td>
+        <td>{{this.commercesCount}}</td>
+        <td>
+          <a href="/admin/commerce-types/{{this._id}}/edit" class="btn btn-sm btn-warning">Editar</a>
+          <a href="/admin/commerce-types/{{this._id}}/delete" class="btn btn-sm btn-danger">Eliminar</a>
+        </td>
+      </tr>
+      {{else}}
+      <tr><td colspan="5" class="text-center text-muted">No hay tipos de comercio</td></tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

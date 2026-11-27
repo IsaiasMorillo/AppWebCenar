@@ -1,0 +1,28 @@
+<h2 class="mb-3">Comercios</h2>
+<div class="table-responsive">
+  <table class="table table-striped align-middle">
+    <thead>
+      <tr>
+        <th>Logo</th><th>Comercio</th><th>Pedidos</th><th>Teléfono</th>
+        <th>Apertura</th><th>Cierre</th><th>Correo</th><th>Estado</th><th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each users}}
+      <tr>
+        <td><img src="{{this.logo}}" alt="logo" width="48" height="48" class="rounded object-fit-cover"></td>
+        <td>{{this.commerceName}}</td>
+        <td>{{this.ordersCount}}</td>
+        <td>{{this.phone}}</td>
+        <td>{{this.openingTime}}</td>
+        <td>{{this.closingTime}}</td>
+        <td>{{this.email}}</td>
+        <td>{{#if this.isActive}}<span class="badge bg-success">Activo</span>{{else}}<span class="badge bg-secondary">Inactivo</span>{{/if}}</td>
+        <td>{{> toggle_button base=../base _id=this._id isActive=this.isActive}}</td>
+      </tr>
+      {{else}}
+      <tr><td colspan="9" class="text-center text-muted">No hay comercios</td></tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
