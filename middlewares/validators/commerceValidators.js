@@ -24,3 +24,21 @@ exports.categoryRules = [
   body("name").trim().notEmpty().withMessage("El nombre es requerido"),
   body("description").trim().notEmpty().withMessage("La descripción es requerida"),
 ];
+
+const productBase = (isEdit) => [
+  body("name").trim().notEmpty().withMessage("El nombre es requerido"),
+  body("description").trim().notEmpty().withMessage("La descripción es requerida"),
+  body("price")
+    .notEmpty()
+    .withMessage("El precio es requerido")
+    .isFloat({ min: 0 })
+    .withMessage("El precio debe ser un número mayor o igual a 0"),
+  body("category").isMongoId().withMessage("Debe seleccionar una categoría"),
+  body("image").custom((value, { req }) => {
+    if (!isEdit && !req.file) throw new Error("La foto del producto es requerida");
+    return true;
+  }),
+];
+
+exports.createProductRules = productBase(false);
+exports.editProductRules = productBase(true);

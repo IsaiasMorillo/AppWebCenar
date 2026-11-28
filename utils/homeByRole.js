@@ -1,6 +1,6 @@
 const homes = {
     admin: "/admin",
-    user: "/user",
+    client: "/client",
     commerce: "/commerce",
     delivery: "/delivery",
 }

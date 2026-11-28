@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const favoriteSechema = new mongoose.Schema({
-    user: {
+    client: {
         type: mongoose.Schema.Types.ObjectId, ref: "User", required: true},
     commerce: {
         type: mongoose.Schema.Types.ObjectId, ref: "User", required: true},

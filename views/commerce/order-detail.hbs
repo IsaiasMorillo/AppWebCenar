@@ -1,0 +1,11 @@
+<div style="max-width: 700px; margin: 0 auto;">
+  {{> orderdetail order=order}}
+
+  {{#if order.isPending}}
+  <form action="/commerce/orders/{{order._id}}/assign" method="POST" class="d-grid mb-3">
+    <button type="submit" class="btn btn-danger">Asignar delivery</button>
+  </form>
+  {{/if}}
+
+  <a href="/commerce" class="btn btn-secondary">Volver</a>
+</div>

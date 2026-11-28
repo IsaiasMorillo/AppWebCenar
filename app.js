@@ -9,6 +9,7 @@ const connectDB = require("./config/database");
 const authRoutes = require("./routes/authRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const commerceRoutes = require("./routes/commerceRoutes");
+const clientRoutes = require("./routes/clientRoutes");
 require("./models/User");
 require("./models/CommerceType");
 require("./models/Config");
@@ -61,6 +62,7 @@ console.log(typeof authRoutes);
 app.use("/", authRoutes);
 app.use("/admin", adminRoutes);
 app.use("/commerce", commerceRoutes);
+app.use("/client", clientRoutes);
 
 // 404
 app.use((req, res) => {

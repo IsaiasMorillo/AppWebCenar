@@ -1,0 +1,16 @@
+<h2 class="mb-3">{{#if isEdit}}Editar dirección{{else}}Crear dirección{{/if}}</h2>
+<form action="{{#if isEdit}}/client/addresses/{{address._id}}/edit{{else}}/client/addresses/create{{/if}}"
+      method="POST" style="max-width: 500px;">
+  <div class="mb-3">
+    <label class="form-label">Nombre de la dirección</label>
+    <input type="text" name="name" value="{{address.name}}" class="form-control" placeholder="Casa, Oficina..." required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Descripción</label>
+    <input type="text" name="description" value="{{address.description}}" class="form-control" required>
+  </div>
+  <div class="d-flex justify-content-between">
+    <a href="/client/addresses" class="btn btn-secondary">Volver</a>
+    <button type="submit" class="btn btn-primary">{{#if isEdit}}Guardar{{else}}Crear{{/if}}</button>
+  </div>
+</form>

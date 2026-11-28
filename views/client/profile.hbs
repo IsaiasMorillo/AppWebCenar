@@ -1,0 +1,25 @@
+<h2 class="mb-3">Mi perfil</h2>
+<form action="/client/profile" method="POST" enctype="multipart/form-data" style="max-width: 500px;">
+  <div class="mb-3">
+    <label class="form-label">Foto de perfil</label>
+    <div class="mb-2"><img src="{{client.photo}}" alt="foto" width="96" height="96" class="rounded-circle object-fit-cover"></div>
+    <input type="file" name="photo" class="form-control" accept="image/*">
+    <div class="form-text">Déjalo vacío para conservar la foto actual.</div>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Nombre</label>
+    <input type="text" name="firstName" value="{{client.firstName}}" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Apellido</label>
+    <input type="text" name="lastName" value="{{client.lastName}}" class="form-control" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Teléfono</label>
+    <input type="text" name="phone" value="{{client.phone}}" class="form-control" required>
+  </div>
+  <div class="d-flex justify-content-between">
+    <a href="/client" class="btn btn-secondary">Volver</a>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+  </div>
+</form>

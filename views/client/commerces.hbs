@@ -1,0 +1,28 @@
+<a href="/client" class="btn btn-secondary btn-sm mb-3">Volver</a>
+
+<form action="/client/types/{{type._id}}" method="GET" class="input-group mb-2">
+  <input type="text" name="q" value="{{search}}" class="form-control" placeholder="Buscar...">
+  <button type="submit" class="btn btn-danger">Buscar</button>
+</form>
+
+<p class="fw-semibold">{{count}} {{type.name}}</p>
+
+{{#each commerces}}
+<div class="card mb-2">
+  <div class="card-body d-flex align-items-center gap-3">
+    <a href="/client/commerces/{{this._id}}" class="d-flex align-items-center gap-3 text-decoration-none text-reset flex-grow-1">
+      <img src="{{this.logo}}" alt="logo" width="64" height="64" class="rounded object-fit-cover">
+      <span class="fw-semibold">{{this.commerceName}}</span>
+    </a>
+    <form action="/client/favorites/{{this._id}}/toggle" method="POST">
+      <input type="hidden" name="typeId" value="{{../type._id}}">
+      <input type="hidden" name="q" value="{{../search}}">
+      <button type="submit" class="btn btn-link fs-4 p-0 text-danger" title="Favorito">
+        {{#if this.isFavorite}}♥{{else}}♡{{/if}}
+      </button>
+    </form>
+  </div>
+</div>
+{{else}}
+<p class="text-muted">No se encontraron comercios.</p>
+{{/each}}

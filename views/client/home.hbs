@@ -1,0 +1,17 @@
+<h2 class="mb-3">Hola. ¿Qué vas a pedir hoy?</h2>
+<div class="row g-3">
+  {{#each types}}
+  <div class="col-6 col-md-4 col-lg-2">
+    <a href="/client/types/{{this._id}}" class="text-decoration-none text-reset">
+      <div class="card h-100 text-center">
+        <div class="card-body">
+          <img src="{{this.icon}}" alt="{{this.name}}" width="64" height="64" class="object-fit-contain mb-2">
+          <div class="fw-semibold">{{this.name}}</div>
+        </div>
+      </div>
+    </a>
+  </div>
+  {{else}}
+  <p class="text-muted">Aún no hay tipos de comercio.</p>
+  {{/each}}
+</div>

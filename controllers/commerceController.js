@@ -2,6 +2,9 @@ const mongoose = require("mongoose");
 const commerceProfileService = require("../services/commerceProfileService");
 const categoryService = require("../services/categoryService");
 const handle = require("../utils/handle");
+const productService = require("../services/productService");
+const PRODUCTS = "/commerce/products";
+const orderService = require("../services/orderService");
 
 const CATEGORIES = "/commerce/categories";
 const commerceId = (req) => new mongoose.Types.ObjectId(req.session.user._id);
@@ -60,3 +63,84 @@ exports.postDeleteCategory = handle(CATEGORIES, async (req, res) => {
   }
   res.redirect(CATEGORIES);
 });
+
+// ---------- Productos ----------
+exports.listProducts = handle("/commerce", async (req, res) => {
+  res.render("commerce/list-products", {
+    title: "Productos",
+    products: await productService.list(commerceId(req)),
+  });
+});
+
+exports.getCreateProduct = handle(PRODUCTS, async (req, res) => {
+  res.render("commerce/product-form", {
+    title: "Crear producto",
+    isEdit: false,
+    categories: await productService.getCategories(commerceId(req)),
+  });
+});
+
+exports.postCreateProduct = handle(`${PRODUCTS}/create`, async (req, res) => {
+  await productService.create(commerceId(req), req.body, req.file);
+  req.flash("success", "Producto creado");
+  res.redirect(PRODUCTS);
+});
+
+exports.getEditProduct = handle(PRODUCTS, async (req, res) => {
+  const product = await productService.getById(req.params.id, commerceId(req));
+  if (!product) return res.redirect(PRODUCTS);
+  const categories = await productService.getCategories(commerceId(req));
+  // marca la categoría actual para el select
+  categories.forEach((c) => (c.selected = String(c._id) === String(product.category)));
+  res.render("commerce/product-form", {
+    title: "Editar producto",
+    isEdit: true,
+    product,
+    categories,
+  });
+});
+
+exports.postEditProduct = handle(
+  (req) => `${PRODUCTS}/${req.params.id}/edit`,
+  async (req, res) => {
+    await productService.update(req.params.id, commerceId(req), req.body, req.file);
+    req.flash("success", "Producto actualizado");
+    res.redirect(PRODUCTS);
+  }
+);
+
+exports.getDeleteProduct = handle(PRODUCTS, async (req, res) => {
+  const product = await productService.getById(req.params.id, commerceId(req));
+  if (!product) return res.redirect(PRODUCTS);
+  res.render("commerce/product-delete", { title: "Eliminar producto", product });
+});
+
+exports.postDeleteProduct = handle(PRODUCTS, async (req, res) => {
+  if (await productService.remove(req.params.id, commerceId(req))) {
+    req.flash("success", "Producto eliminado");
+  }
+  res.redirect(PRODUCTS);
+});
+
+// ---------- Pedidos ----------
+exports.getHome = handle("/commerce", async (req, res) => {
+  res.render("commerce/home", {
+    title: "Home del comercio",
+    orders: await orderService.listForCommerce(commerceId(req)),
+  });
+});
+
+exports.getOrder = handle("/commerce", async (req, res) => {
+  const order = await orderService.getForCommerce(req.params.id, commerceId(req));
+  if (!order) return res.redirect("/commerce");
+  res.render("commerce/order-detail", { title: "Detalle del pedido", order });
+});
+
+exports.postAssignDelivery = handle(
+  (req) => `/commerce/orders/${req.params.id}`,
+  async (req, res) => {
+    await orderService.assignDelivery(req.params.id, commerceId(req));
+    req.flash("success", "Delivery asignado. El pedido está en proceso.");
+    res.redirect(`/commerce/orders/${req.params.id}`);
+  }
+);

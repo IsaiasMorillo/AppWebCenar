@@ -1,0 +1,55 @@
+<div class="row">
+  <div class="col-md-8">
+    <h4 class="mb-3">Elige la dirección de entrega</h4>
+
+    {{#if addresses.length}}
+    <form action="/client/checkout" method="POST">
+      <ul class="list-group mb-3">
+        {{#each addresses}}
+        <li class="list-group-item">
+          <label class="d-flex align-items-center gap-2 w-100">
+            <input type="radio" name="addressId" value="{{this._id}}" class="form-check-input mt-0">
+            <span><strong>{{this.name}}</strong> · {{this.description}}</span>
+          </label>
+        </li>
+        {{/each}}
+      </ul>
+      <div class="d-flex justify-content-between">
+        <a href="/client/commerces/{{summary.commerce._id}}" class="btn btn-secondary">Volver</a>
+        <button type="submit" id="orderBtn" class="btn btn-danger" disabled>Pedir</button>
+      </div>
+    </form>
+    {{else}}
+    <div class="alert alert-warning">
+      No tienes direcciones. Crea una para poder continuar.
+      <a href="/client/addresses/create" class="alert-link">Crear dirección</a>
+    </div>
+    <a href="/client/commerces/{{summary.commerce._id}}" class="btn btn-secondary">Volver</a>
+    {{/if}}
+  </div>
+
+  <div class="col-md-4 mt-4 mt-md-0">
+    <div class="card">
+      <div class="card-body">
+        <div class="d-flex align-items-center gap-2 mb-3">
+          <img src="{{summary.commerce.logo}}" alt="logo" width="40" height="40" class="rounded object-fit-cover">
+          <strong>{{summary.commerce.commerceName}}</strong>
+        </div>
+        <div class="d-flex justify-content-between"><span>Subtotal</span><span>RD$ {{summary.subtotalLabel}}</span></div>
+        <div class="d-flex justify-content-between"><span>ITBIS ({{summary.itbis}}%)</span><span>RD$ {{summary.itbisAmountLabel}}</span></div>
+        <hr>
+        <div class="d-flex justify-content-between"><strong>Total</strong><strong>RD$ {{summary.totalLabel}}</strong></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // El botón Pedir se habilita al elegir una dirección
+  const orderBtn = document.getElementById("orderBtn");
+  if (orderBtn) {
+    document.querySelectorAll('input[name="addressId"]').forEach((radio) =>
+      radio.addEventListener("change", () => (orderBtn.disabled = false))
+    );
+  }
+</script>

@@ -1,0 +1,20 @@
+<div class="text-center mb-3">
+  <h3>{{order.commerce.commerceName}}</h3>
+  <span class="badge bg-{{order.statusClass}}">{{order.statusLabel}}</span>
+  <div class="text-muted">{{order.dateLabel}}</div>
+</div>
+
+<h5>El pedido</h5>
+<ul class="list-group mb-3">
+  {{#each order.items}}
+  <li class="list-group-item d-flex align-items-center gap-3">
+    <img src="{{this.image}}" alt="producto" width="56" height="56" class="rounded object-fit-cover">
+    <span class="flex-grow-1">{{this.name}}</span>
+    <strong>RD$ {{this.priceLabel}}</strong>
+  </li>
+  {{/each}}
+  <li class="list-group-item d-flex justify-content-between">
+    <strong>Total</strong>
+    <strong>RD$ {{order.totalLabel}}</strong>
+  </li>
+</ul>
