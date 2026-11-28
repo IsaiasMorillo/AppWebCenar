@@ -94,3 +94,37 @@ exports.getForClient = async (id, clientId) => {
     .lean();
   return order ? orderView(order) : null;
 };
+
+exports.listForDelivery = async (deliveryId) => {
+  const orders = await Order.find({ delivery: deliveryId })
+    .populate("commerce", populateCommerce)
+    .sort({ createdAt: -1 })
+    .lean();
+  return orders.map(orderView);
+};
+
+// Siempre filtra por delivery. La dirección solo se incluye mientras está en proceso
+exports.getForDelivery = async (id, deliveryId) => {
+  if (!mongoose.isValidObjectId(id)) return null;
+  const order = await Order.findOne({ _id: id, delivery: deliveryId })
+    .populate("commerce", populateCommerce)
+    .lean();
+  if (!order) return null;
+
+  const view = orderView(order);
+  if (!view.isInProgress) delete view.address;
+  return view;
+};
+
+exports.completeOrder = async (id, deliveryId) => {
+  if (!mongoose.isValidObjectId(id)) throw new ServiceError("El pedido no existe");
+
+  const order = await Order.findOneAndUpdate(
+    { _id: id, delivery: deliveryId, status: "in_progress" },
+    { status: "completed" }
+  );
+  if (!order) throw new ServiceError("El pedido no existe o ya fue completado");
+
+  // El delivery queda disponible para recibir otro pedido
+  await User.updateOne({ _id: deliveryId }, { deliveryStatus: "available" });
+};

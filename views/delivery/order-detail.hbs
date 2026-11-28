@@ -1,0 +1,20 @@
+<div style="max-width: 700px; margin: 0 auto;">
+  {{#if order.isInProgress}}
+  <form action="/delivery/orders/{{order._id}}/complete" method="POST" class="d-grid mb-3">
+    <button type="submit" class="btn btn-danger">Completar el pedido</button>
+  </form>
+  {{/if}}
+
+  {{> orderdetail order=order}}
+
+  {{#if order.address}}
+  <div class="card mb-3">
+    <div class="card-body">
+      <small class="text-muted">Dirección de entrega</small>
+      <div class="fw-semibold">{{order.address.name}} · {{order.address.description}}</div>
+    </div>
+  </div>
+  {{/if}}
+
+  <a href="/delivery" class="btn btn-secondary">Volver</a>
+</div>

@@ -10,6 +10,9 @@ const authRoutes = require("./routes/authRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const commerceRoutes = require("./routes/commerceRoutes");
 const clientRoutes = require("./routes/clientRoutes");
+const deliveryRoutes = require("./routes/deliveryRoutes");
+const { notFound, errorHandler } = require("./middlewares/errorHandler");
+const homeByRole = require("./utils/homeByRole");
 require("./models/User");
 require("./models/CommerceType");
 require("./models/Config");
@@ -63,11 +66,15 @@ app.use("/", authRoutes);
 app.use("/admin", adminRoutes);
 app.use("/commerce", commerceRoutes);
 app.use("/client", clientRoutes);
+app.use("/delivery", deliveryRoutes);
 
-// 404
-app.use((req, res) => {
-  res.status(404).send("Página no encontrada");
+// Raíz: al home del rol si hay sesión, si no al login
+app.get("/", (req, res) => {
+  res.redirect(req.session.user ? homeByRole(req.session.user.role) : "/login");
 });
+
+app.use(notFound);
+app.use(errorHandler);
 
 connectDB().then(() => {
   app.listen(port, () => {
